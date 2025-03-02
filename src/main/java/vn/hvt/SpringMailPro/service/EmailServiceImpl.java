@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import vn.hvt.SpringMailPro.dto.EmailResponse;
+import vn.hvt.SpringMailPro.exception.EmailException;
+import vn.hvt.SpringMailPro.exception.ErrorCode;
 import vn.hvt.SpringMailPro.model.Email;
 import vn.hvt.SpringMailPro.provider.EmailProvider;
 import vn.hvt.SpringMailPro.queue.EmailQueue;
@@ -132,7 +134,7 @@ public class EmailServiceImpl implements EmailService {
             return EmailResponse.success("QUEUED-" + System.currentTimeMillis(), "Queue");
         } catch (Exception e) {
             log.error("Failed to queue email", e);
-            return EmailResponse.failure("Queue error: " + e.getMessage());
+            throw new EmailException(ErrorCode.EMAIL_GENERAL_ERROR);
         }
     }
 }
