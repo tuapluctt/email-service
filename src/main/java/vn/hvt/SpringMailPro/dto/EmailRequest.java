@@ -14,9 +14,9 @@ import java.util.Map;
 @Data
 public class EmailRequest {
     @NotEmpty(message = "Recipient email(s) must not be empty")
-    private List<@Email(message = "Recipient email address is invalid") String> to;
-    private List<@Email(message = "Recipient email address is invalid") String> cc;
-    private List<@Email(message = "Recipient email address is invalid") String> bcc;
+    private String[] to;
+    private String[] cc;
+    private String[] bcc;
 
     @Email(message = "From email must be valid")
     private String from;

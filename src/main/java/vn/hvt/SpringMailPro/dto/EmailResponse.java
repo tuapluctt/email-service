@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,6 +17,9 @@ public class EmailResponse {
     private boolean success;
     private String messageId;
     private String error;
+
+    @Builder.Default
+    private List<String> invalidAddresses = new ArrayList<>();
 
     @Builder.Default
     private LocalDateTime timestamp = LocalDateTime.now();

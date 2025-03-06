@@ -1,7 +1,10 @@
 package vn.hvt.SpringMailPro.provider;
 
 
+import jakarta.mail.AuthenticationFailedException;
 import vn.hvt.SpringMailPro.dto.EmailResponse;
+import vn.hvt.SpringMailPro.exception.EmailException;
+import vn.hvt.SpringMailPro.exception.ErrorCode;
 import vn.hvt.SpringMailPro.model.Email;
 import vn.hvt.SpringMailPro.model.EmailAttachment;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +16,8 @@ import org.springframework.stereotype.Component;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+
+import java.net.ConnectException;
 
 @Slf4j
 @Component
@@ -51,6 +56,7 @@ public class SmtpEmailProvider implements EmailProvider {
             }
 
             // Set text or HTML content
+
             boolean hasHtml = email.getHtml() != null && !email.getHtml().isEmpty();
             helper.setText(hasHtml ? email.getHtml() : email.getText(), hasHtml);
 
@@ -68,9 +74,15 @@ public class SmtpEmailProvider implements EmailProvider {
             emailSender.send(message);
             return EmailResponse.success("SMTP-" + System.currentTimeMillis(), getName());
 
+        } catch (AuthenticationFailedException e) {
+            log.error("SMTP authentication failed", e);
+            throw new EmailException(ErrorCode.SMTP_AUTHENTICATION_ERROR);
         } catch (MessagingException e) {
             log.error("Failed to send email via SMTP", e);
-            return EmailResponse.failure("SMTP error: " + e.getMessage());
+            throw new EmailException(ErrorCode.SMTP_SENDING_ERROR);
+        } catch (Exception e) {
+            log.error("Unexpected error sending email via SMTP", e);
+            throw new EmailException(ErrorCode.SMTP_SENDING_ERROR);
         }
     }
 

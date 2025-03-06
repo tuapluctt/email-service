@@ -1,47 +1,86 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Hóa đơn</title>
+    <title>Invoice</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
-        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+        .header {
+            background-color: #34a853;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #888888;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #34a853;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .message {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>Hóa đơn #<span th:text="${model.invoiceNumber}">12345</span></h1>
+        <h1>Invoice #<span th:text="${invoiceNumber}">12345</span></h1>
     </div>
 
     <div style="padding: 20px;">
-        <h2>Kính gửi <span th:text="${model.customerName}">Khách hàng</span>,</h2>
+        <h2>Dear <span th:text="${customerName}">Customer</span>,</h2>
 
-        <p>Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi. Dưới đây là chi tiết hóa đơn của bạn:</p>
+        <p>Thank you for your business. Here are the details of your invoice:</p>
 
         <table>
             <tr>
-                <th>Dịch vụ</th>
-                <th>Số lượng</th>
-                <th>Đơn giá</th>
-                <th>Thành tiền</th>
+                <th>Service</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
             </tr>
-            <tr th:each="item : ${model.items}">
-                <td th:text="${item.name}">Tên dịch vụ</td>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.name}">Service Name</td>
                 <td th:text="${item.quantity}">1</td>
-                <td th:text="${item.price}">100.000đ</td>
-                <td th:text="${item.total}">100.000đ</td>
+                <td th:text="${item.price}">100.00</td>
+                <td th:text="${item.total}">100.00</td>
             </tr>
         </table>
 
-        <p>Tổng cộng: <strong th:text="${model.total}">100.000đ</strong></p>
+        <p>Total: <strong th:text="${total}">100.00</strong></p>
 
         <p style="text-align: center;">
-            <a th:href="${model.paymentUrl}" class="button">Thanh toán ngay</a>
+            <a th:href="${paymentUrl}" class="button">Pay Now</a>
         </p>
     </div>
 
     <div class="footer">
-        <p>&copy; 2025 Your Company. All rights reserved.</p>
+        <p>&copy; 2025 hvt</p>
     </div>
 </div>
 </body>

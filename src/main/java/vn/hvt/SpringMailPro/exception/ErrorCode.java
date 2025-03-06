@@ -11,10 +11,10 @@ public enum ErrorCode {
 
     // Lỗi cấu hình
     EMAIL_CONFIG_ERROR(2100, "Lỗi cấu hình email service", HttpStatus.SERVICE_UNAVAILABLE),
-    PROVIDER_NOT_AVAILABLE(2101, "Không có nhà cung cấp email khả dụng", HttpStatus.SERVICE_UNAVAILABLE),
+    PROVIDER_NOT_AVAILABLE(2101, "No email providers are available", HttpStatus.SERVICE_UNAVAILABLE),
 
     // Lỗi template
-    TEMPLATE_ERROR(2200, "Lỗi xử lý template email", HttpStatus.INTERNAL_SERVER_ERROR),
+    TEMPLATE_ERROR(2200, "Error processing template email", HttpStatus.INTERNAL_SERVER_ERROR),
     TEMPLATE_NOT_FOUND(2201, "Không tìm thấy template", HttpStatus.NOT_FOUND),
 
     // Lỗi SMTP
