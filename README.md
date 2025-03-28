@@ -26,3 +26,41 @@ Gửi yêu cầu POST đến `/api/emails/send` với payload:
   ]
 }
 ```
+
+### Gửi email với template
+
+Gửi yêu cầu POST đến `/api/emails/send` với payload:
+```json
+{
+  "to": ["hoanganhtu66hat@gmail.com"],
+  "cc": ["hoangvantu2@dtu.edu.vn"],
+  "subject": "Invoice #INV-2025-0324",
+  "templateName": "invoice",
+  "templateModel": {
+    "invoiceNumber": "INV-2025-0324",
+    "customerName": "Nguyễn Văn A",
+    "items": [
+      {
+        "name": "Dịch vụ hosting website",
+        "quantity": 1,
+        "price": "2.400.000đ",
+        "total": "2.400.000đ"
+      },
+      {
+        "name": "SSL Certificate (1 năm)",
+        "quantity": 1,
+        "price": "750.000đ",
+        "total": "750.000đ"
+      },
+      {
+        "name": "Dịch vụ backup dữ liệu",
+        "quantity": 2,
+        "price": "350.000đ",
+        "total": "700.000đ"
+      }
+    ],
+    "total": "3.850.000đ",
+    "paymentUrl": "https://yourcompany.com/payment?invoice=INV-2025-0324&token=eyJhbGciOiJIUzI1NiJ9"
+  }
+}
+```
