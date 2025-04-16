@@ -37,7 +37,7 @@ public class EmailController {
     @PostMapping("/bulk")
     public ResponseEntity<ApiResponse<List<EmailResponse>>> sendBulkEmails(
             @Valid @RequestBody List<EmailRequest> requests,
-            @RequestParam(defaultValue = "true") boolean useQueue) {
+            @RequestParam(defaultValue = "false") boolean useQueue) {
 
         List<EmailResponse> responses = emailService.sendBulkEmails(requests, useQueue);
         return ResponseEntity.ok(ApiResponse.<List<EmailResponse>>builder()

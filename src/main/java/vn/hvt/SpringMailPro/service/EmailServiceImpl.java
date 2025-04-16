@@ -165,6 +165,31 @@ public class EmailServiceImpl implements EmailService {
         }
     }
 
+    @Override
+    public List<EmailResponse> sendBulkEmails(List<EmailRequest> requests, boolean useQueue) {
+        List<EmailResponse> responses = new ArrayList<>();
+
+
+        List<Email> emails = requests.stream()
+                .map(this::mapRequestToEmail)
+                .toList();
+
+        if (useQueue && queueEnabled) {
+            // Add all emails to queue
+            for (Email email : emails) {
+                responses.add(queueEmail(email));
+            }
+        } else {
+            // Send directly one by one
+            for (EmailRequest email : requests) {
+                responses.add(sendEmail(email));
+            }
+        }
+
+        return responses;
+    }
+
+
     private EmailProvider selectProvider(List<EmailProvider> listProviders) {
         // Tìm provider có sẵn
         for (EmailProvider provider : listProviders) {
@@ -188,30 +213,6 @@ public class EmailServiceImpl implements EmailService {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    @Override
-    public List<EmailResponse> sendBulkEmails(List<EmailRequest> requests, boolean useQueue) {
-        List<EmailResponse> responses = new ArrayList<>();
-
-
-        List<Email> emails = requests.stream()
-                .map(this::mapRequestToEmail)
-                .toList();
-
-        if (useQueue && queueEnabled) {
-            // Add all emails to queue
-            for (Email email : emails) {
-                responses.add(queueEmail(email));
-            }
-        } else {
-            // Send directly one by one
-            for (EmailRequest email : requests) {
-                responses.add(sendEmail(email));
-            }
-        }
-
-        return responses;
     }
 
     @Override

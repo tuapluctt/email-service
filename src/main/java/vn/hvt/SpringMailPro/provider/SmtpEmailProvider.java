@@ -56,7 +56,6 @@ public class SmtpEmailProvider implements EmailProvider {
             }
 
             // Set text or HTML content
-
             boolean hasHtml = email.getHtml() != null && !email.getHtml().isEmpty();
             helper.setText(hasHtml ? email.getHtml() : email.getText(), hasHtml);
 

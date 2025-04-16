@@ -10,8 +10,6 @@ import java.util.Map;
 public interface EmailService {
     EmailResponse sendEmail(EmailRequest emailRequest);
 
-//    EmailResponse sendTemplateEmail(String[] to, String templateName, Map<String, Object> model, String subject);
-
     List<EmailResponse> sendBulkEmails(List<EmailRequest>  emailRequest, boolean useQueue);
 
     EmailResponse queueEmail(Email email);
