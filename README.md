@@ -1,3 +1,21 @@
+###
+*   **Ngôn ngữ:** Java (Phiên bản 17+)
+*   **Framework:** Spring Boot (Phiên bản 3.x)
+*   **Email Core:** Spring Boot Starter Mail (`JavaMailSender`)
+*   **AWS SDK:** AWS SDK for Java v2 (cho tích hợp SES)
+*   **Template Engine (Tùy chọn):** Thymeleaf (hoặc FreeMarker, etc.)
+*   **Build Tool:** Maven (hoặc Gradle)
+
+### Tính năng
+
+*   Gửi email văn bản thuần túy (plain text).
+*   Gửi email định dạng HTML.
+*   Gửi email sử dụng template engine (ví dụ: Thymeleaf).
+*   Gửi email với một hoặc nhiều file đính kèm.
+*   Hỗ trợ gửi qua SMTP.
+*   Hỗ trợ gửi qua AWS SES.
+*   Cấu hình linh hoạt thông qua `application.properties` hoặc `application.yml`.
+
 ### Gửi email đơn lẻ
 
 Gửi yêu cầu POST đến `/api/emails/send` với payload:
